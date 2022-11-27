@@ -621,28 +621,46 @@ function ShowInfo(username , email,birthday, gender,avt){
        
       //load conversation latest
       conversations.find((conv) => {
-      
         if (conv._id === data.conversationId) {
           conv.updatedAt = new Date(Date.now()).toISOString();
           for (let index = 0; index < conv.members.length; index++) {
             if (conv.members[index] === _id) {
               const cs = conversations.sort((a, b) => b.updatedAt.localeCompare(a.updatedAt))
-              setConversation(conversations);
-              if(cs[0]._id == currentChat._id)
-                setConActive(0)
-              // cs.forEach((con, i) => {
+              setConversation(cs);
+               if(data.senderId === _id){
+                  setConActive(0)
+               } else {
+                
+                cs.forEach((con, i) => {
+                      if (con._id === currentChat._id)
+                        setConActive(i)
+                      })
+               }
+            }
+          }
+        }
+      })
+
+
+
+
+      
+            //   if(cs[0]._id === currentChat._id)
+            //   setConActive(0)
+            //   else
+            //   {
+            //     cs.forEach((con, i) => {
+            //       if (cs[i]._id === currentChat._id)
+            //       setConActive(i)
+            //     })
+            // } 
+      // if(cs[0]._id == currentChat._id)
+      //           setConActive(0)   
+             // cs.forEach((con, i) => {
               //     if (cs[0] == currentChat){
               //       setConActive(i)
               //     }
               //   })
-                      
-              
-            }
-          }
-         
-          
-        }
-      })
 
 
       // let indexx = concsts.findIndex((e)=>{
